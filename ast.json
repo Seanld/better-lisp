@@ -1,0 +1,3 @@
+{
+    "BINARY_OP": [["INTEGER", "FLOAT"], ["PLUS", "MINUS", "TIMES", "DIVIDE"], ["INTEGER", "FLOAT"]]
+}
