@@ -18,6 +18,10 @@ TOKENS_TYPES = [
     Token("DOT", re.compile(r"\.")),
     Token("L_PAREN", re.compile(r"\(")),
     Token("R_PAREN", re.compile(r"\)")),
+    Token("PLUS", re.compile(r"\+")),
+    Token("MINUS", re.compile(r"\-")),
+    Token("TIMES", re.compile(r"\*")),
+    Token("DIVIDE", re.compile(r"\/"))
 
     #{"type": "SPACE", "regex": re.compile(r" ")},
     Token("NEWLINE", re.compile(r"\n"))
