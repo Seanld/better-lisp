@@ -15,8 +15,6 @@ class Token (object):
 def sortTokensBySpan(token_list): # Bubble-sorts the list by span.
     new_token_list = [t for t in token_list]
 
-    [print(t.value.span()) for t in new_token_list]
-
     counter = 0
 
     while counter < len(new_token_list) - 1:

@@ -1,6 +1,7 @@
 import sys
 import re
 from tokenizer import *
+from syntaxtree import *
 
 opened = open(sys.argv[1], "r")
 SOURCE_CODE = opened.read()
@@ -22,7 +23,6 @@ TOKENS_TYPES = [
     Token("NEWLINE", re.compile(r"\n"))
 ]
 
-matches = tokenize(TOKENS_TYPES, SOURCE_CODE)
+tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
-print("")
-[print(m.value.span()) for m in matches]
+generate_tree(tokens)
