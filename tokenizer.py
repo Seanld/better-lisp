@@ -12,7 +12,7 @@ class Token (object):
         self.type_name = type_name
         self.value = value
 
-def sortTokensBySpan(token_list): # Bubble-sorts the list by span.
+def sort_tokens_by_span(token_list): # Bubble-sorts the list by span.
     new_token_list = [t for t in token_list]
 
     counter = 0
@@ -58,4 +58,4 @@ def tokenize(tokens_list, text_to_scan):
 
             matched = token.value.search(text_block)
     
-    return sortTokensBySpan(matched_tokens)
+    return sort_tokens_by_span(matched_tokens)
