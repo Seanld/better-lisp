@@ -1,3 +1,16 @@
 {
-    "BINARY_OP": [["INTEGER", "FLOAT"], ["PLUS", "MINUS", "TIMES", "DIVIDE"], ["INTEGER", "FLOAT"]]
+    "B_EXPRESSION": [
+        ["one", "L_PAREN"],
+        ["one", ["PLUS", "MINUS", "TIMES", "DIVIDE"]],
+        ["one", ["STRING", "FLOAT", "INTEGER", "ATOM"]],
+        ["one", ["STRING", "FLOAT", "INTEGER", "ATOM"]],
+        ["one", "R_PAREN"]
+    ],
+
+    "S_EXPRESSION": [
+        ["one", "L_PAREN"],
+        ["one", "ATOM"],
+        ["many", ["STRING", "FLOAT", "INTEGER", "ATOM"]],
+        ["one", "R_PAREN"]
+    ]
 }
