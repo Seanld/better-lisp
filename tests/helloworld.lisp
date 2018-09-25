@@ -1,2 +1,1 @@
-(print "Hello, world!")
-(print "Hello, world! (again)")
+(+ 5 3)
