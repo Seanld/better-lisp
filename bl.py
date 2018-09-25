@@ -21,7 +21,7 @@ TOKENS_TYPES = [
     Token("PLUS", re.compile(r"\+")),
     Token("MINUS", re.compile(r"\-")),
     Token("TIMES", re.compile(r"\*")),
-    Token("DIVIDE", re.compile(r"\/"))
+    Token("DIVIDE", re.compile(r"\/")),
 
     #{"type": "SPACE", "regex": re.compile(r" ")},
     Token("NEWLINE", re.compile(r"\n"))
@@ -29,4 +29,6 @@ TOKENS_TYPES = [
 
 tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
-generate_tree(tokens)
+[print(token.type_name) for token in tokens]
+
+print(match_grammar(tokens))
