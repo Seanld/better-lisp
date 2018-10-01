@@ -22,6 +22,7 @@ TOKENS_TYPES = [
     Token("MINUS", re.compile(r"\-")),
     Token("TIMES", re.compile(r"\*")),
     Token("DIVIDE", re.compile(r"\/")),
+    Token("POWER", re.compile(r"\^")),
 
     #{"type": "SPACE", "regex": re.compile(r" ")},
     Token("NEWLINE", re.compile(r"\n"))
