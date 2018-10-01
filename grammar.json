@@ -1,7 +1,7 @@
 {
     "B_EXPRESSION": [
         ["one", "L_PAREN"],
-        ["one", ["PLUS", "MINUS", "TIMES", "DIVIDE"]],
+        ["one", ["PLUS", "MINUS", "TIMES", "DIVIDE", "POWER"]],
         ["one", ["STRING", "FLOAT", "INTEGER", "ATOM"]],
         ["one", ["STRING", "FLOAT", "INTEGER", "ATOM"]],
         ["one", "R_PAREN"]
