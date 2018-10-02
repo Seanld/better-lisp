@@ -30,6 +30,6 @@ TOKENS_TYPES = [
 
 tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
-[print(token.type_name) for token in tokens]
+PROGRAM_NAME = sys.argv[1].split(".")[0]
+tree = AST(PROGRAM_NAME, tokens)
 
-print(match_grammar(tokens))
