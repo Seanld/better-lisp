@@ -6,6 +6,18 @@ This dialect of LISP does *not* compile to machine-dependent executable binaries
 
 You can run this compiled VM code if you've installed the runtime for it (grab it over at the afore-linked repository).
 
+## Running
+
+BetterLISP is currently still in early alpha development. _Very_ early alpha. But if you want to try running one of the test source code programs, just type:
+
+```sh
+$ python bl.py tests/helloworld.lisp
+```
+
+And depending on the state of the project, it should operate on that file's source code. The goal is to get it to eventually generate bytecode in a separate file that can be executed using https://github.com/Seanld/vm, but that's going to take a while.
+
+Side note: The aforementioned VM project is _also_ in very early alpha, so please don't laugh at me. It will only get better - I promise. I'm planning on re-writing it in C++ (because we all know running a VM in Python is Satan), but only once I figure out the overall structure of it in Python.
+
 ## Project Structure
 
 - **bl.py**: The main compiler tool for BetterLISP. Used in the command-line as `python bl.py <betterlisp-program>`; can also be used when put into PATH, and then running `bl <betterlisp-program>`.
