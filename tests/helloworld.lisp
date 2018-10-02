@@ -1,4 +1,3 @@
-(var totalScore 400)
-(var totalTests 5)
-(var totalScore (/ totalScore totalTests))
-(print totalScore)
+(+ 5 3)
+(- 2 5)
+(var sean is 17.5 years old)
