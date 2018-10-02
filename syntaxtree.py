@@ -8,10 +8,36 @@ GRAMMAR = json.load(open("grammar.json"))
 class AST (object):
     def __init__(self, program_name, token_list):
         self.data = {program_name: {}}
-    
-    def generate(self):
-        pass
 
+        self.generate(token_list)
+    
+    def generate(self, token_list):
+        splitted = split_tokens("NEWLINE", token_list)
+        expressions = []
+
+        for split in splitted:
+            expressions.append(match_grammar(split))
+        
+        [print(expression) for expression in expressions]
+
+# Splits a list of tokens using `token_type` as a delimiter.
+def split_tokens(token_type, token_list):
+    counter = 0
+    splits = []
+
+    for token in token_list:
+        if token_type == token.type_name:
+            splits.append(token_list[:counter])
+
+            token_list = token_list[counter + 1:]
+            counter = 0
+        
+        else:
+            counter += 1
+    
+    return splits
+
+# Counts how many tokens of the same `type_name` occur in a row in `token_list`, starting at `starting_index`.
 def row(token_list, starting_index):
     counter = 1
     token_type = token_list[starting_index].type_name
@@ -24,23 +50,7 @@ def row(token_list, starting_index):
     
     return counter
 
-def split_tokens(token_type, token_list):
-    counter = 0
-    splits = []
-
-    while counter < len(token_list) - 1:
-        token = token_list[counter]
-
-        if token_type == token[0]:
-            splits.append(token_list[:counter])
-
-            token_list = token_list[counter:]
-            counter = 0
-        
-        counter += 1
-    
-    return splits
-
+# Matches list of tokens to a grammar in `grammar.json`.
 def match_grammar(token_list):
     # match_check_list = [] # Gradually accumulates all the tokens from `token_list`; used to brute-force match a grammar.
     for grammar_def in GRAMMAR:
