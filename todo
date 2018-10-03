@@ -5,7 +5,9 @@
 
 [] Create a module that handles the creation of ASTs via generated tokens using `tokenizer.py`.
     [x] Match groups of tokens to larger expressions so that ASTs are more categorized and useful.
-    [x] Match multiple groups of expressions for complex LISP programs.
+        [x] Single (one) token match checks.
+        [x] Multiple (many) token match checks.
+    [] Match multiple groups of expressions for complex LISP programs.
     [] Use generated expressions to generate basic AST structure.
 
 [] Using the generated AST, scan through nodes and generate code for `https://github.com/Seanld/vm`.
