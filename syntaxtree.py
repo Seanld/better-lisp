@@ -13,12 +13,12 @@ class AST (object):
     
     def generate(self, token_list):
         splitted = split_tokens("NEWLINE", token_list)
-        expressions = []
+        expressions = {}
 
         for split in splitted:
-            expressions.append(match_grammar(split))
+            expressions[match_grammar(split)] = split
         
-        [print(expression) for expression in expressions]
+        print(expressions)
 
 # Splits a list of tokens using `token_type` as a delimiter.
 def split_tokens(token_type, token_list):
@@ -40,6 +40,9 @@ def split_tokens(token_type, token_list):
 # Counts how many tokens of the same `type_name` occur in a row in `token_list`, starting at `starting_index`.
 def row(token_list, starting_index):
     counter = 1
+
+    # print("INDEX: {}, MAX: {}".format(starting_index, len(token_list) - 1))
+
     token_type = token_list[starting_index].type_name
 
     for token in token_list[starting_index + 1:]:
@@ -67,25 +70,30 @@ def match_grammar(token_list):
 
             if grammar_contents[grammar_list_counter][0] == "one":
                 if token.type_name in grammar_contents[grammar_list_counter][1]:
-                    pass
+                    token_list_counter += 1;
+
                 else:
                     matching = False
                     break
             
             elif grammar_contents[grammar_list_counter][0] == "many":
-                if row_count_tokens >= 1:
-                    if token.type_name in grammar_contents[grammar_list_counter][1]:
-                        token_list_counter += row_count_tokens - 1
-                    else:
-                        matching = False
-                        break
-                else:
-                    matching = False
-                    break
+                grammar_data = grammar_contents[grammar_list_counter]
+
+                while token.type_name not in grammar_contents[grammar_list_counter + 1][1]:
+                    if token.type_name in grammar_data[1]:
+                        amount = row(token_list, token_list_counter)
+
+                        token_list_counter += amount
+
+                    token = token_list[token_list_counter]
+            
             else:
                 print("Invalid grammar amount specifier!")
 
-            token_list_counter += 1; grammar_list_counter += 1
+            grammar_list_counter += 1
         
         if matching == True:
-            return grammar_def
+            if token_list_counter < len(token_list) - 1:
+                return None
+            else:
+                return grammar_def
