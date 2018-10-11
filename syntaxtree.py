@@ -75,7 +75,7 @@ def is_operator(t):
         return False
 
 # Constructs an AST data structure that can then be used to generate VM code.
-def construct(tokens):
+def generate_ast(tokens):
     index = 0
 
     seeking = False
@@ -116,6 +116,10 @@ def construct(tokens):
         index += 1
     
     return None
+
+# Helper function for `generate_ast`, just to make life easier.
+def construct(tokens):
+    return generate_ast(tokens)[0]
 
 # Matches list of tokens to a grammar in `grammar.json`.
 def match_grammar(token_list): # TODO LATER Not necessary anymore; deprecated.
