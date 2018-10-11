@@ -5,35 +5,41 @@ import json
 
 GRAMMAR = json.load(open("grammar.json"))
 
+class Node (object):
+    def __init__(self, token):
+        self.token = token
+        self.sub_nodes = []
+
 class AST (object):
     def __init__(self, program_name, token_list):
-        self.data = {program_name: {}}
+        self.tree = [{program_name: []}]
 
         self.generate(token_list)
     
     def generate(self, token_list):
-        splitted = split_tokens("NEWLINE", token_list)
-        expressions = {}
+        splitted = split_tokens(["NEWLINE"], token_list)
 
         for split in splitted:
-            expressions[match_grammar(split)] = split
-        
-        print(expressions)
+            expression = match_grammar(split)
+
+            pass
 
 # Splits a list of tokens using `token_type` as a delimiter.
-def split_tokens(token_type, token_list):
+def split_tokens(excluder_types, token_list):
     counter = 0
+
     splits = []
+    accumulator = []
 
     for token in token_list:
-        if token_type == token.type_name:
-            splits.append(token_list[:counter])
-
-            token_list = token_list[counter + 1:]
-            counter = 0
-        
+        if token.type_name not in excluder_types:
+            accumulator.append(token)
         else:
-            counter += 1
+            splits.append(accumulator)
+            accumulator = []
+    
+    if len(accumulator) > 0:
+        splits.append(accumulator)
     
     return splits
 
@@ -53,9 +59,66 @@ def row(token_list, starting_index):
     
     return counter
 
+OPERATORS = [
+    "PLUS",
+    "MINUS",
+    "MULTIPLY",
+    "DIVIDE",
+    "POWER",
+    "ATOM"
+]
+
+def is_operator(t):
+    if t in OPERATORS:
+        return True
+    else:
+        return False
+
+# Constructs an AST data structure that can then be used to generate VM code.
+def construct(tokens):
+    index = 0
+
+    seeking = False
+
+    sub_tokens = []
+
+    while index < len(tokens):
+        token = tokens[index]
+
+        print(token.type_name)
+
+        if token.type_name == "L_PAREN":
+            print("LEFTY!")
+
+            if seeking == True: # Sub-node to parse!
+                recursed = construct(tokens[index:])
+
+                print("BEFORE:", recursed[1])
+
+                index += recursed[1]
+
+                sub_tokens.append(recursed[0])
+            else:
+                seeking = True
+
+        elif token.type_name == "R_PAREN": # Found an end, return results.
+            seeking = False
+
+            print("RETURNING")
+
+            return (sub_tokens, index)
+
+        else:
+            sub_tokens.append(token)
+        
+        print("AFTER:", index)
+
+        index += 1
+    
+    return None
+
 # Matches list of tokens to a grammar in `grammar.json`.
-def match_grammar(token_list):
-    # match_check_list = [] # Gradually accumulates all the tokens from `token_list`; used to brute-force match a grammar.
+def match_grammar(token_list): # TODO LATER Not necessary anymore; deprecated.
     for grammar_def in GRAMMAR:
         grammar_contents = GRAMMAR[grammar_def]
 
