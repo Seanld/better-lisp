@@ -10,7 +10,7 @@ opened.close()
 TOKENS_TYPES = [
     Token("STRING", re.compile(r"\".+?\"")),
     Token("FLOAT", re.compile(r"\d+\.\d+")),
-    Token("INTEGER", re.compile(r"\d+")),
+    Token("INTEGER", re.compile(r"-?\d+")),
 
     Token("ATOM", re.compile(r"\w+")),
 
@@ -30,6 +30,9 @@ TOKENS_TYPES = [
 
 tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
-PROGRAM_NAME = sys.argv[1].split(".")[0]
-tree = AST(PROGRAM_NAME, tokens)
+tree = construct(tokens)
 
+print(tree)
+
+# PROGRAM_NAME = sys.argv[1].split(".")[0]
+# tree = AST(PROGRAM_NAME, tokens)
