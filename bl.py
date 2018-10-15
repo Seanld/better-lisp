@@ -8,6 +8,8 @@ SOURCE_CODE = opened.read()
 opened.close()
 
 TOKENS_TYPES = [
+    # Token("COMMENT", re.compile(r"\/\/.+")),
+
     Token("STRING", re.compile(r"\".+?\"")),
     Token("FLOAT", re.compile(r"\d+\.\d+")),
     Token("INTEGER", re.compile(r"-?\d+")),
@@ -30,9 +32,13 @@ TOKENS_TYPES = [
 
 tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
-tree = construct(tokens)
+tree = generate_ast(tokens)
 
 print(tree)
 
-# PROGRAM_NAME = sys.argv[1].split(".")[0]
-# tree = AST(PROGRAM_NAME, tokens)
+# print(tree[0][0].type_name,
+#     tree[0][1].type_name,
+#     tree[0][2][0].type_name,
+#     tree[0][2][1].type_name,
+#     tree[0][2][2].type_name
+# )

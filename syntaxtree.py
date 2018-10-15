@@ -85,41 +85,28 @@ def generate_ast(tokens):
     while index < len(tokens):
         token = tokens[index]
 
-        print(token.type_name)
-
         if token.type_name == "L_PAREN":
-            print("LEFTY!")
-
             if seeking == True: # Sub-node to parse!
-                recursed = construct(tokens[index:])
-
-                print("BEFORE:", recursed[1])
+                recursed = generate_ast(tokens[index:])
 
                 index += recursed[1]
 
                 sub_tokens.append(recursed[0])
+            
             else:
                 seeking = True
 
         elif token.type_name == "R_PAREN": # Found an end, return results.
             seeking = False
 
-            print("RETURNING")
-
             return (sub_tokens, index)
 
         else:
             sub_tokens.append(token)
-        
-        print("AFTER:", index)
 
         index += 1
     
     return None
-
-# Helper function for `generate_ast`, just to make life easier.
-def construct(tokens):
-    return generate_ast(tokens)[0]
 
 # Matches list of tokens to a grammar in `grammar.json`.
 def match_grammar(token_list): # TODO LATER Not necessary anymore; deprecated.
