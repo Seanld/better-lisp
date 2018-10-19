@@ -53,8 +53,8 @@ def tokenize(tokens_list, text_to_scan):
         while matched != None: # We are still finding matches, keep looping.
             new_token = Token(token.type_name, matched)
 
-            #if new_token.type_name != "COMMENT":
-            matched_tokens.append(new_token)
+            if new_token.type_name != "COMMENT":
+                matched_tokens.append(new_token)
             
             text_block = cut(text_block, matched.span())
 
