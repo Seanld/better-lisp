@@ -2,13 +2,14 @@ import sys
 import re
 from tokenizer import *
 from syntaxtree import *
+from compiler import *
 
 opened = open(sys.argv[1], "r")
 SOURCE_CODE = opened.read()
 opened.close()
 
 TOKENS_TYPES = [
-    # Token("COMMENT", re.compile(r"\/\/.+")),
+    Token("COMMENT", re.compile(r"\/\/.+")),
 
     Token("STRING", re.compile(r"\".+?\"")),
     Token("FLOAT", re.compile(r"\d+\.\d+")),
@@ -24,21 +25,19 @@ TOKENS_TYPES = [
     Token("MINUS", re.compile(r"\-")),
     Token("TIMES", re.compile(r"\*")),
     Token("DIVIDE", re.compile(r"\/")),
-    Token("POWER", re.compile(r"\^")),
-
-    #{"type": "SPACE", "regex": re.compile(r" ")},
-    Token("NEWLINE", re.compile(r"\n"))
+    Token("POWER", re.compile(r"\^"))
 ]
 
 tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
 tree = generate_ast(tokens)
 
-print(tree)
+vm_code = compile_ast(tree[0])
 
-# print(tree[0][0].type_name,
-#     tree[0][1].type_name,
-#     tree[0][2][0].type_name,
-#     tree[0][2][1].type_name,
-#     tree[0][2][2].type_name
-# )
+for token in vm_code:
+    print(token)
+
+opened = open(sys.argv[2], "w")
+for item in vm_code:
+    opened.write(str(item) + "\n")
+opened.close()
