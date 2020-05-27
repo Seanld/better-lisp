@@ -28,9 +28,15 @@ TOKENS_TYPES = [
     Token("POWER", re.compile(r"\^"))
 ]
 
+full_vm_code = []
+
 tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
+print(tokens)
+
 tree = generate_ast(tokens)
+
+print(tree)
 
 vm_code = compile_ast(tree[0])
 

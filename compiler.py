@@ -24,7 +24,8 @@ RENAMES = {
     "PLUS": "+",
     "MINUS": "-",
     "TIMES": "*",
-    "DIVIDE": "/"
+    "DIVIDE": "/",
+    "POWER": "^"
 }
 
 def rename(token):
