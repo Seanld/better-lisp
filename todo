@@ -1,8 +1,0 @@
-[x] Design basic syntax for language (keep it simple, similar to Common LISP).
-
-[x] Write a simple tokenizer via RegEx.
-    [x] Sort the generated tokens in chronological order to make building the AST easier.
-
-[x] Create a module that handles the creation of ASTs via generated tokens using `tokenizer.py`.
-
-[] Using the generated AST, scan through nodes and generate code for `https://github.com/Seanld/vm`.
