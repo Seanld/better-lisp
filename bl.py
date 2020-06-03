@@ -25,23 +25,21 @@ TOKENS_TYPES = [
     Token("MINUS", re.compile(r"\-")),
     Token("TIMES", re.compile(r"\*")),
     Token("DIVIDE", re.compile(r"\/")),
-    Token("POWER", re.compile(r"\^"))
+    Token("POWER", re.compile(r"\^")),
+
+    Token("DOLLAR", re.compile(r"\$"))
 ]
 
 full_vm_code = []
 
 tokens = tokenize(TOKENS_TYPES, SOURCE_CODE)
 
-print(tokens)
+# for token in tokens:
+#     print(token.type_name)
 
 tree = generate_ast(tokens)
 
-print(tree)
-
-vm_code = compile_ast(tree[0])
-
-for token in vm_code:
-    print(token)
+vm_code = compile_ast(tree)
 
 opened = open(sys.argv[2], "w")
 for item in vm_code:

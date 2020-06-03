@@ -30,6 +30,13 @@ RENAMES = {
 
 def rename(token):
     if token.type_name == "ATOM":
+        print(token.value)
+        if token.value.group() == "var":
+            return "store"
+        else:
+            return token.value.group()
+    
+    elif token.type_name == "STRING":
         return token.value.group()
 
     elif token.type_name == "INTEGER":
@@ -41,8 +48,13 @@ def rename(token):
     else:
         return token.type_name
 
-def compile_ast(tree):
-    stack = walk(tree)
+def compile_ast(tree_list):
+    print(tree_list)
+
+    stack = []
+    
+    for tree in tree_list:
+        stack += walk(tree)
 
     counter = 0
 

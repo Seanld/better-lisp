@@ -55,20 +55,20 @@ def is_operator(t):
     else:
         return False
 
-# Constructs an AST data structure that can then be used to generate VM code.
-def generate_ast(tokens):
+# Constructs an AST of a single root LISP branch. Returns once it reaches the end.
+def generate_sub_ast(tokens):
     index = 0
 
     seeking = False
 
     sub_tokens = []
 
-    while index < len(tokens):
+    while True:
         token = tokens[index]
 
         if token.type_name == "L_PAREN":
             if seeking == True: # Sub-node to parse!
-                recursed = generate_ast(tokens[index:])
+                recursed = generate_sub_ast(tokens[index:])
 
                 index += recursed[1]
 
@@ -88,3 +88,25 @@ def generate_ast(tokens):
         index += 1
     
     return None
+
+# This will utilize the previous function iteratively to generate
+# an AST of a full multi-root program.
+def generate_ast(tokens):
+    full_ast = []
+
+    initial_generate = generate_sub_ast(tokens)
+    full_ast.append(initial_generate[0])
+    index = initial_generate[1]
+
+    while True:
+        try:
+            tokens[index + 2]
+
+            next_generate = generate_sub_ast(tokens[index + 1:])
+            full_ast.append(next_generate[0])
+            index += next_generate[1]
+        
+        except IndexError:
+            return full_ast
+        
+        # print(index)
